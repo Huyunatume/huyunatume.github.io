@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冬枣 - 个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+        }
+        body {
+            background: linear-gradient(160deg, #f0f7fc 5%, #193b59 98%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            min-height: 100vh;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: #c1e0f7;
+            filter: blur(0.5px);
+            opacity: 0.7;
+            transform: translateY(0);
+            animation: shootingStar linear infinite;
+            box-shadow: 0 0 2px 1px currentColor, 0 0 6px 2px currentColor, 0 0 12px 3px currentColor;
+        }
+        .star.color1 { background: #c1e0f7; color: #c1e0f7; opacity: 0.6; }
+        .star.color2 { background: #84bfe8; color: #84bfe8; opacity: 0.7; }
+        .star.color3 { background: #5a9ed6; color: #5a9ed6; opacity: 0.8; }
+        @keyframes shootingStar {
+            0% {
+                transform: translate(0, 0) scale(0.8);
+                opacity: 0;
+            }
+            5% { opacity: 0.8; }
+            95% { opacity: 0.8; }
+            100% {
+                transform: translate(220px, 220px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* ✨ 新增：动画基础样式（淡入+位移） */
+        .animate {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+        .animate-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease forwards;
+        }
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 头像+名字：左→右滑出（动画延迟0s） */
+        .profile {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4.5px solid #6aaedf;
+            box-shadow: 0 0 30px rgba(106, 174, 223, 0.3);
+        }
+        .nickname {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            width: 100%;
+            max-width: 546px;
+            padding: 23.4px 28.6px;
+            margin: 13px 0;
+            border-radius: 18.2px;
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .link-item:hover {
+            background-color: rgba(255, 255, 255, 0.18);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 40, 70, 0.25);
+            border-color: rgba(255,255,255,0.3);
+        }
+        .icon {
+            width: 59.8px;
+            height: 59.8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 23.4px;
+            overflow: hidden;
+        }
+        .icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+        .icon.bilibili { background: linear-gradient(135deg, #fb7299, #ff2e63); }
+        .icon.twitter { background: linear-gradient(135deg, #1da1f2, #0d8bd9); }
+        .icon.vrchat { background: linear-gradient(135deg, #7289da, #9b59b6); }
+        .link-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* ✨ 动画间隔：0.3秒依次触发 */
+        .link-bilibili {
+            animation-delay: 0.3s;
+        }
+        .link-twitter {
+            animation-delay: 0.6s;
+        }
+        .link-vrchat {
+            animation-delay: 0.9s;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+
+    <!-- 头像+名字：左→右滑出+淡入（延迟0s） -->
+    <div class="profile">
+        <img src="https://i.imgur.com/NsPcgep.jpeg" alt="冬枣" class="avatar">
+        <h1 class="nickname">冬枣</h1>
+    </div>
+
+    <!-- B站：左→右滑出+淡入（延迟0.3s） -->
+    <a href="https://space.bilibili.com/100484344" target="_blank" class="link-item animate link-bilibili">
+        <div class="icon bilibili">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/bilibili.svg" alt="B站LOGO" style="fill: white;">
+        </div>
+        <span class="link-text">哔哩哔哩</span>
+    </a>
+
+    <!-- X：右→左滑出+淡入（延迟0.6s） -->
+    <a href="https://twitter.com/HuyuNatume_VRC" target="_blank" class="link-item animate-right link-twitter">
+        <div class="icon twitter">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X官方LOGO" style="fill: white;">
+        </div>
+        <span class="link-text">Twitter/X</span>
+    </a>
+
+    <!-- VRChat：左→右滑出+淡入（延迟0.9s） -->
+    <a href="https://vrchat.com/home/user/usr_56d100e4-496a-4820-9673-7001bf41892a" target="_blank" class="link-item animate link-vrchat">
+        <div class="icon vrchat">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/vrchat.svg" alt="VRChat官方LOGO" style="fill: white;">
+        </div>
+        <span class="link-text">VRChat</span>
+    </a>
+
+    <script>
+        const starsContainer = document.querySelector('.stars');
+        const starCount = 60;
+        const colors = ['color1', 'color2', 'color3'];
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.classList.add(colors[i % 3]);
+            const size = Math.random() * 1 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDuration = `${Math.random() * 6 + 6}s`;
+            star.style.animationDelay = `${Math.random() * 12}s`;
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
